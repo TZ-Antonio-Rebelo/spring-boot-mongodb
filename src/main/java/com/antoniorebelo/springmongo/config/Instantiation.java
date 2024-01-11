@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.antoniorebelo.springmongo.domain.Post;
 import com.antoniorebelo.springmongo.domain.User;
 import com.antoniorebelo.springmongo.dto.AuthorDTO;
+import com.antoniorebelo.springmongo.dto.CommentDTO;
 import com.antoniorebelo.springmongo.repository.PostRepository;
 import com.antoniorebelo.springmongo.repository.UserRepository;
 
@@ -46,6 +47,17 @@ public class Instantiation implements CommandLineRunner {
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
 		
 		userRepository.save(maria);
+		
+		CommentDTO comment1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/218"), new AuthorDTO(alex));
+		CommentDTO comment2 = new CommentDTO("Aproveite!", sdf.parse("22/03/218"), new AuthorDTO(bob));
+		CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/218"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(comment1, comment2));
+		post2.getComments().add(comment3);
+		
+		postRepository.saveAll(Arrays.asList(post1, post2));
+		
+		
 	}
 
 }
